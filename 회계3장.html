@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>중급재무회계 3장 요약</title>
+    <style>
+        body {
+            font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+            line-height: 1.8;
+            margin: 20px;
+            font-size: 11pt;
+        }
+        h1 {
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+            color: #111;
+        }
+        h2 {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-left: 5px solid #0056b3;
+            color: #003366;
+            margin-top: 40px;
+        }
+        h3 {
+            border-bottom: 1px dotted #777;
+            padding-bottom: 5px;
+            color: #333;
+            margin-top: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            margin-bottom: 20px;
+            font-size: 10.5pt;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #e9ecef;
+            text-align: center;
+        }
+        /* 핵심 용어 강조 */
+        .term {
+            color: #D9534F; /* 붉은 계열 */
+            font-weight: bold;
+        }
+        /* 차변 계열 (자산, 비용) */
+        .debit {
+            color: #0275D8; /* 파란 계열 */
+            font-weight: bold;
+        }
+        /* 대변 계열 (부채, 자본, 수익) */
+        .credit {
+            color: #5CB85C; /* 녹색 계열 */
+            font-weight: bold;
+        }
+        /* 회계 단계 강조 */
+        .step {
+            color: #E67E22; /* 주황 계열 */
+            font-weight: bold;
+        }
+        .example-table td:nth-child(1) { width: 40%; }
+        .example-table td:nth-child(2) { width: 30%; }
+        .example-table td:nth-child(3) { width: 30%; }
+
+        .account-table td:nth-child(1) { text-align: center; }
+
+    </style>
+</head>
+<body>
+
+    <h1>중급재무회계 3장: 회계시스템 (핵심 요약)</h1>
+
+    <h2>제1절: 복식부기시스템</h2>
+    <p>모든 거래를 <span class="debit">차변(왼쪽)</span>과 <span class="credit">대변(오른쪽)</span>으로 나누어 기록하며, 차변의 합계와 대변의 합계는 <strong>반드시 일치</strong>해야 합니다.</p>
+
+    <h3>1. 회계등식 (The Accounting Equation)</h3>
+    <p style="font-size: 1.2em; text-align: center; font-weight: bold; background-color: #f9f9f9; padding: 10px;">
+        <span class="debit">자산</span> = <span class="credit">부채</span> + <span class="credit">자본</span>
+    </p>
+    <ul>
+        <li><span class="term">자산 (Asset):</span> 기업이 소유한 경제적 자원 (예: 현금, 건물, 매출채권)</li>
+        <li><span class="term">부채 (Liability):</span> 기업이 갚아야 할 의무 (채권자지분)</li>
+        <li><span class="term">자본 (Capital):</span> 자산에서 부채를 뺀 순수한 소유주지분</li>
+    </ul>
+
+    <h3>2. 계정과목의 5대 범주</h3>
+    <p>모든 거래는 이 5가지 계정 중 하나로 분류됩니다. 각 계정은 증가하거나 감소하는 위치(차변/대변)가 정해져 있습니다.</p>
+    <table class="account-table">
+        <thead>
+            <tr>
+                <th>계정 범주</th>
+                <th>정의 (무엇인가?)</th>
+                <th><span class="debit">차변 (왼쪽)</span></th>
+                <th><span class="credit">대변 (오른쪽)</span></th>
+                <th>평상시 잔액 위치</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><span class="debit">자산 (Asset)</span></td>
+                <td>기업이 소유한 것 (재산)</td>
+                <td><strong>증가 (+)</strong></td>
+                <td>감소 (-)</td>
+                <td><span class="debit">차변</span></td>
+            </tr>
+            <tr>
+                <td><span class="credit">부채 (Liability)</span></td>
+                <td>기업이 갚아야 할 것 (빚)</td>
+                <td>감소 (-)</td>
+                <td><strong>증가 (+)</strong></td>
+                <td><span class="credit">대변</span></td>
+            </tr>
+            <tr>
+                <td><span class="credit">자본 (Capital)</span></td>
+                <td>자산-부채 (순자산)</td>
+                <td>감소 (-)</td>
+                <td><strong>증가 (+)</strong></td>
+                <td><span class="credit">대변</span></td>
+            </tr>
+            <tr>
+                <td><span class="debit">비용 (Expense)</span></td>
+                <td>돈을 쓴 것 (자본의 감소)</td>
+                <td><strong>증가 (+)</strong></td>
+                <td>감소 (-)</td>
+                <td><span class="debit">차변</span></td>
+            </tr>
+            <tr>
+                <td><span class="credit">수익 (Revenue)</span></td>
+                <td>돈을 번 것 (자본의 증가)</td>
+                <td>감소 (-)</td>
+                <td><strong>증가 (+)</strong></td>
+                <td><span class="credit">대변</span></td>
+            </tr>
+        </tbody>
+    </table>
+    <p><strong>[암기 Tip!]</strong></p>
+    <ul>
+        <li>"<span class="debit">자산</span>"과 "<span class="debit">비용</span>"은 <span class="debit">차변(왼쪽)</span>에서 증가합니다.</li>
+        <li>"<span class="credit">부채</span>", "<span class="credit">자본</span>", "<span class="credit">수익</span>"은 <span class="credit">대변(오른쪽)</span>에서 증가합니다.</li>
+    </ul>
+
+    <h3>3. 예제 3-1: 대차균형의 원리 적용하기</h3>
+    <table class="example-table">
+        <thead>
+            <tr>
+                <th>거래 내용</th>
+                <th>분개 (차변 / 대변)</th>
+                <th>회계등식의 변화 (<span class="debit">자산</span> = <span class="credit">부채</span> + <span class="credit">자본</span>)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>① 용역 제공, 대금 ₩1,000은 나중에 받기로 함</td>
+                <td>(차) 매출채권 1,000 (<span class="debit">자산 증가</span>) <br> (대) 용역수익 1,000 (<span class="credit">수익 발생→자본 증가</span>)</td>
+                <td><span class="debit">+1,000</span> = <span class="credit">0 + 1,000</span></td>
+            </tr>
+            <tr>
+                <td>② 매출채권 ₩500을 현금으로 회수</td>
+                <td>(차) 현금 500 (<span class="debit">자산 증가</span>) <br> (대) 매출채권 500 (<span class="debit">자산 감소</span>)</td>
+                <td><span class="debit">+500 - 500</span> = <span class="credit">0 + 0</span></td>
+            </tr>
+            <tr>
+                <td>③ 주식 발행으로 현금 ₩5,000 조달</td>
+                <td>(차) 현금 5,000 (<span class="debit">자산 증가</span>) <br> (대) 자본금 5,000 (<span class="credit">자본 증가</span>)</td>
+                <td><span class="debit">+5,000</span> = <span class="credit">0 + 5,000</span></td>
+            </tr>
+            <tr>
+                <td>④ 복사기 ₩2,000 구입, 어음 지급</td>
+                <td>(차) 비품 2,000 (<span class="debit">자산 증가</span>) <br> (대) 미지급금 2,000 (<span class="credit">부채 증가</span>)</td>
+                <td><span class="debit">+2,000</span> = <span class="credit">+2,000 + 0</span></td>
+            </tr>
+            <tr>
+                <td>⑤ 미지급금 ₩300을 현금으로 지급</td>
+                <td>(차) 미지급금 300 (<span class="credit">부채 감소</span>) <br> (대) 현금 300 (<span class="debit">자산 감소</span>)</td>
+                <td><span class="debit">-300</span> = <span class="credit">-300 + 0</span></td>
+            </tr>
+            <tr>
+                <td>⑥ 인건비 ₩100을 현금으로 지급</td>
+                <td>(차) 인건비 100 (<span class="debit">비용 발생→자본 감소</span>) <br> (대) 현금 100 (<span class="debit">자산 감소</span>)</td>
+                <td><span class="debit">-100</span> = <span class="credit">0 - 100</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>제2절: 회계순환과정</h2>
+    <p>거래가 발생한 시점부터 재무제표가 작성되고 장부가 마감되기까지의 전체 흐름입니다.</p>
+    <ol>
+        <li><span class="step">(1단계) 거래의 식별과 기록</span></li>
+        <li><span class="step">(2단계) 분개 (분개장에 기록)</span></li>
+        <li><span class="step">(3단계) 원장으로의 전기</span></li>
+        <li><span class="step" style="color:red; font-size:1.1em;">(4단계) 수정분개 (★매우 중요★)</span></li>
+        <li><span class="step">(5단계) 재무제표의 작성</span></li>
+        <li><span class="step">(6단계) 장부마감</span></li>
+    </ol>
+
+    <h3>(1)~(3) 거래 식별, 분개, 전기</h3>
+    <p>거래를 식별하여(<span class="step">1단계</span>) <span class="term">분개장</span>에 차변/대변으로 기록하고(<span class="step">2단계</span>), <span class="term">총계정원장</span>(T-계정)에 옮겨 적어 잔액을 집계합니다(<span class="step">3단계</span>).</p>
+
+    <h3>(4) 수정분개 (Adjusting Entries)</h3>
+    <p><strong>발생주의 회계원칙</strong>에 따라, 실제 현금 수수와 관계없이 발생한 수익과 비용을 해당 기간에 정확히 인식하기 위해 기말에 수행하는 분개입니다.</p>
+    
+    <h4>수정분개 대상 항목</h4>
+    <ol>
+        <li><strong><span class="term">이연 항목 (Deferrals)</span>:</strong> 현금은 먼저 오고 갔으나, 수익/비용 인식은 나중에 하는 것.
+            <ul>
+                <li><strong>선급비용:</strong> <u>비용을 먼저 지급</u>했으나, 아직 사용하지 않은 부분. (예: 선급임차료) <br>
+                    <i>(수정분개) → (차) OOO비용 (사용한 만큼) / (대) 선급비용</i></li>
+                <li><strong>선수수익:</strong> <u>수익을 먼저 받았</u>으나, 아직 용역을 제공하지 않은 부분. (부채) <br>
+                    <i>(수정분개) → (차) 선수수익 / (대) OOO수익 (제공한 만큼)</i></li>
+            </ul>
+        </li>
+        <li><strong><span class="term">발생 항목 (Accruals)</span>:</strong> 수익/비용은 먼저 발생했으나, 현금은 나중에 오고 가는 것.
+            <ul>
+                <li><strong>미지급비용:</strong> <u>비용이 발생</u>했으나, 아직 지급하지 않은 부분. (예: 미지급급여) <br>
+                    <i>(수정분개) → (차) OOO비용 / (대) 미지급비용</i></li>
+                <li><strong>미수수익:</strong> <u>수익이 발생</u>했으나, 아직 받지 못한 부분. (예: 미수이자수익) <br>
+                    <i>(수정분개) → (차) 미수수익 / (대) OOO수익</i></li>
+            </ul>
+        </li>
+        <li><strong><span class="term">기타 항목 (추정 및 평가)</span></strong>
+            <ul>
+                <li><strong>추정 항목:</strong> 감가상각비, 대손상각비 등.</li>
+                <li><strong>평가 항목:</strong> 자산/부채의 기말 공정가치 평가.</li>
+            </ul>
+        </li>
+    </ol>
+
+    <h3>🌟 예제 3-3: (4단계) 수정분개 실습</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>항목</th>
+                <th>거래 내용</th>
+                <th>수정분개 (차변 / 대변)</th>
+                <th>계정 유형</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>a</td>
+                <td>4.5에 지급한 3개월분 임차료 ₩300 중 4월분 ₩100만 비용이고, ₩200은 차기분이다.</td>
+                <td>(차) <span class="debit">선급임차료</span> 200 <br> (대) <span class="debit">임차료</span> 200</td>
+                <td>이연 (선급비용)</td>
+            </tr>
+            <tr>
+                <td>b</td>
+                <td>4.26에 받은 ₩600 중 ₩300은 4월에 용역을 수행(수익)했고, ₩300은 미수행.</td>
+                <td>(차) <span class="credit">용역수익</span> 300 <br> (대) <span class="credit">선수용역수익</span> 300</td>
+                <td>이연 (선수수익)</td>
+            </tr>
+            <tr>
+                <td>c</td>
+                <td>4월 급여 ₩1,500 중 ₩1,000만 지급, ₩500은 미지급.</td>
+                <td>(차) <span class="debit">급여</span> 500 <br> (대) <span class="credit">미지급급여</span> 500</td>
+                <td>발생 (미지급비용)</td>
+            </tr>
+            <tr>
+                <td>d</td>
+                <td>비품(₩1,200) 4월분 감가상각비 ₩20 발생.</td>
+                <td>(차) <span class="debit">감가상각비</span> 20 <br> (대) <span class="credit">감가상각누계액</span> 20</td>
+                <td>기타 (추정)</td>
+            </tr>
+            <tr>
+                <td>e</td>
+                <td>매출채권 중 ₩15 회수 불가능 추정.</td>
+                <td>(차) <span class="debit">대손상각비</span> 15 <br> (대) <span class="credit">대손충당금</span> 15</td>
+                <td>기타 (추정)</td>
+            </tr>
+            <tr>
+                <td>f</td>
+                <td>FVOCI자산(원가 ₩200) 공정가치가 ₩250으로 ₩50 상승.</td>
+                <td>(차) <span class="debit">FVOCI자산</span> 50 <br> (대) <span class="credit">금융자산평가이익(기타포괄)</span> 50</td>
+                <td>기타 (평가)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>(5) 재무제표의 작성</h3>
+    <p><span class="term">수정후잔액시산표</span>의 자료를 이용하여 재무제표를 작성합니다.</p>
+    <ul>
+        <li><strong>포괄손익계산서:</strong> <span class="credit">수익</span>과 <span class="debit">비용</span> 계정을 옮겨 <span class="term">당기순이익</span>을 계산.</li>
+        <li><strong>재무상태표:</strong> <span class="debit">자산</span>, <span class="credit">부채</span>, <span class="credit">자본</span> 계정을 옮김. (이때 당기순이익은 자본의 <span class="term">이익잉여금</span>에 합산)</li>
+    </ul>
+
+    <h3>(6) 장부마감 (Closing Entries)</h3>
+    <p>기말에 회계기간을 마감하기 위해 <span class="term">임시계정(수익, 비용, 배당금 등)</span>의 잔액을 "0"으로 만들고, 그 순액(당기순이익)을 <span class="term">영구계정(자산, 부채, 자본)</span>인 <span class="term">이익잉여금</span>으로 대체하는 과정입니다.</p>
+    
+    <h4>마감 분개 순서</h4>
+    <ol>
+        <li>모든 <strong><span class="credit">수익</span></strong>(대변 잔액)을 (차변)으로, <strong><span class="term">집합손익</span></strong>(대변)으로 보냅니다.</li>
+        <li>모든 <strong><span class="debit">비용</span></strong>(차변 잔액)을 (대변)으로, <strong><span class="term">집합손익</span></strong>(차변)으로 보냅니다.</li>
+        <li><strong><span class="term">집합손익</span></strong> 계정의 잔액(당기순이익)을 <strong><span class="credit">이익잉여금</span></strong>으로 보냅니다.</li>
+        <li>(기타포괄손익을 기타포괄손익누계액으로 마감)</li>
+        <li><strong><span class="debit">배당금</span></strong>(차변 잔액)을 <strong><span class="credit">이익잉여금</span></strong>(차변)에서 직접 차감합니다.</li>
+    </ol>
+    <p>→ 이 과정이 끝나면 모든 수익/비용 계정은 0이 되고, 자산/부채/자본 계정만 남아 다음 기로 이월됩니다.</p>
+
+</body>
+</html>
