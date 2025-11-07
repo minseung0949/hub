@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global InfoHub</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: IBM Plex Sans (본문), Roboto Mono (데이터/경로) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 커스텀 스타일 */
+        body {
+            font-family: 'IBM Plex Sans', 'Inter', sans-serif;
+            background-color: #0F172A; /* bg-slate-900 */
+        }
+        
+        /* 데이터/코드 표시용 폰트 */
+        .font-data {
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        /* 입력창 포커스 시 테두리 */
+        .input-focus:focus {
+            border-color: #3B82F6; /* blue-500 */
+            box-shadow: 0 0 8px rgba(59, 130, 246, 0.5);
+            outline: none;
+            ring-width: 0;
+        }
+
+        /* 버튼 호버 시 효과 */
+        .btn-main {
+            transition: all 0.3s ease;
+        }
+        
+        .btn-main:hover {
+            background-color: #2563EB; /* blue-600 */
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* 파일 카드 호버 효과 */
+        .file-card {
+            transition: all 0.3s ease;
+        }
+        .file-card:hover {
+            border-color: #3B82F6; /* blue-500 */
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        /* 스크롤바 스타일링 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1E293B; /* slate-800 */
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3B82F6; /* blue-500 */
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2563EB; /* blue-600 */
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-200 min-h-screen p-4 md:p-8">
+
+    <div class="max-w-6xl mx-auto">
+        
+        <!-- 헤더 -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-6xl font-bold text-blue-300 mb-2">GLOBAL INFORMATION HUB</h1>
+            <p class="text-lg text-slate-400 font-data">:: Cross-Disciplinary Data Repository ::</p>
+        </header>
+
+        <!-- 접속 정보 입력 섹션 -->
+        <section id="config-section" class="bg-slate-800 border border-slate-700 p-6 rounded-lg shadow-xl mb-12 max-w-lg mx-auto">
+            <h2 class="text-2xl font-bold mb-4 border-b-2 border-slate-600 pb-2 text-blue-300">:: DATABASE CONNECTION ::</h2>
+            <div class="space-y-4">
+                <div>
+                    <label for="github-user" class="block text-sm font-medium mb-1 text-slate-300">OPERATOR (GitHub Username)</label>
+                    <input type="text" id="github-user" placeholder="e.g., your-username" class="w-full bg-slate-700 border border-slate-600 text-slate-100 rounded-md p-3 input-focus">
+                </div>
+                <div>
+                    <label for="github-repo" class="block text-sm font-medium mb-1 text-slate-300">REPOSITORY (Database Name)</label>
+                    <input type="text" id="github-repo" placeholder="e.g., your-repo-name" class="w-full bg-slate-700 border border-slate-600 text-slate-100 rounded-md p-3 input-focus">
+                </div>
+                <div>
+                    <label for="github-branch" class="block text-sm font-medium mb-1 text-slate-300">BRANCH (Default: main)</label>
+                    <input type="text" id="github-branch" value="main" placeholder="e.g., main or gh-pages" class="w-full bg-slate-700 border border-slate-600 text-slate-100 rounded-md p-3 input-focus">
+                </div>
+                <button id="load-button" class="w-full bg-blue-700 border border-blue-500 text-white font-bold py-3 px-4 rounded-md btn-main">
+                    LOAD ARCHIVES
+                </button>
+            </div>
+        </section>
+
+        <!-- 상태 메시지 -->
+        <div id="status-message" class="text-center text-lg my-8" role="status"></div>
+
+        <!-- 파일 아카이브 (동적 생성) -->
+        <main id="file-archive" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- 파일 목록이 여기에 동적으로 추가됩니다. -->
+        </main>
+
+        <!-- 푸터 -->
+        <footer class="text-center text-slate-500 text-sm mt-12 border-t border-slate-700 pt-4">
+            <p>&copy; 2025. Global Information Hub. Access Level: Authorized.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        const userIn = document.getElementById('github-user');
+        const repoIn = document.getElementById('github-repo');
+        const branchIn = document.getElementById('github-branch');
+        const loadButton = document.getElementById('load-button');
+        const statusMsg = document.getElementById('status-message');
+        const archiveContainer = document.getElementById('file-archive');
+        
+        // 로드 버튼 클릭 이벤트
+        loadButton.addEventListener('click', fetchGitHubTree);
+
+        /**
+         * GitHub API를 호출하여 저장소 파일 트리를 가져옵니다.
+         */
+        async function fetchGitHubTree() {
+            const username = userIn.value.trim();
+            const repoName = repoIn.value.trim();
+            const branchName = branchIn.value.trim() || 'main'; // 비어있으면 'main' 사용
+
+            if (!username || !repoName) {
+                updateStatus("ERROR: OPERATOR AND REPOSITORY FIELDS REQUIRED.", true);
+                return;
+            }
+
+            // API URL 생성
+            const apiUrl = `https://api.github.com/repos/${username}/${repoName}/git/trees/${branchName}?recursive=1`;
+
+            updateStatus("CONNECTING TO REPOSITORY...", false);
+            archiveContainer.innerHTML = ''; // 이전 목록 초기화
+
+            try {
+                // API 호출
+                const response = await fetch(apiUrl);
+
+                if (!response.ok) {
+                    throw new Error(`CONNECTION FAILED. STATUS: ${response.status} (Check repo/branch name)`);
+                }
+
+                const data = await response.json();
+                
+                if (data.truncated) {
+                    updateStatus("WARNING: Repository tree is too large. Some files may be omitted.", false);
+                }
+                
+                // 파일 트리 파싱 및 표시
+                parseAndDisplayFiles(data.tree, username, repoName, branchName);
+
+            } catch (error) {
+                console.error("Error fetching repository tree:", error);
+                updateStatus(`ERROR: ${error.message}`, true);
+            }
+        }
+
+        /**
+         * API 응답을 파싱하여 HTML 파일 목록을 화면에 표시합니다.
+         */
+        function parseAndDisplayFiles(tree, username, repoName, branchName) {
+            // .html 파일만 필터링 (이 index.html 파일은 제외)
+            const htmlFiles = tree
+                .filter(item => 
+                    item.type === 'blob' && 
+                    item.path.endsWith('.html') && 
+                    item.path.toLowerCase() !== 'index.html' // 이 파일 자신은 제외
+                )
+                .sort((a, b) => a.path.localeCompare(b.path)); // 경로 순으로 정렬
+
+            if (htmlFiles.length === 0) {
+                updateStatus("CONNECTION STABLE. NO DATA FILES (.html) FOUND.", false);
+                return;
+            }
+
+            // GitHub Pages URL 생성
+            // 기본 URL: https://{username}.github.io/{repoName}
+            const baseUrl = `https://${username}.github.io/${repoName}`;
+
+            // 각 파일을 템플릿에 추가
+            htmlFiles.forEach(file => {
+                const fileUrl = `${baseUrl}/${file.path}`;
+                const card = createFileCard(file, fileUrl);
+                archiveContainer.appendChild(card);
+            });
+            
+            updateStatus(`SYNC COMPLETE. ${htmlFiles.length} DATA FILES LOADED.`, false);
+        }
+
+        /**
+         * 개별 파일 카드를 생성합니다.
+         */
+        function createFileCard(file, fileUrl) {
+            const cardLink = document.createElement('a');
+            cardLink.href = fileUrl;
+            cardLink.target = "_blank"; // 새 탭에서 열기
+            cardLink.rel = "noopener noreferrer";
+            cardLink.className = "file-card group block bg-slate-800 border-2 border-slate-700 rounded-lg p-5 text-slate-300 hover:text-white shadow-lg";
+            
+            // 데이터베이스 아이콘 (SVG) - Heroicons 'database'
+            const iconSvg = `
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mb-3 text-blue-400 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4M4 7v5c0 2.21 3.582 4 8 4s8-1.79 8-4V7" />
+                </svg>
+            `;
+
+            // 파일 경로를 보기 좋게 포맷팅
+            const formattedPath = file.path
+                .replace('.html', '')
+                .replace(/[\/-]/g, ' > '); // '/' 또는 '-'를 ' > '로 변경
+
+            cardLink.innerHTML = `
+                ${iconSvg}
+                <h3 class="text-xl font-bold truncate" title="${file.path}">${formattedPath}</h3>
+                <p class="text-sm text-slate-400 opacity-80 truncate font-data" title="${file.path}">${file.path}</p>
+                <span class="mt-4 inline-block text-sm font-bold text-white bg-blue-600 group-hover:bg-blue-500 px-3 py-1 rounded-full transition-colors">
+                    ACCESS DATA >
+                </span>
+            `;
+            
+            return cardLink;
+        }
+
+        /**
+         * 상태 메시지를 업데이트합니다.
+         */
+        function updateStatus(message, isError = false) {
+            statusMsg.textContent = message;
+            if (isError) {
+                statusMsg.className = 'text-center text-lg my-8 text-red-400 font-bold font-data';
+            } else {
+                statusMsg.className = 'text-center text-lg my-8 text-blue-300 font-data';
+            }
+        }
+        
+        // 로컬 스토리지에서 사용자 이름/저장소 불러오기
+        document.addEventListener('DOMContentLoaded', () => {
+            userIn.value = localStorage.getItem('gh_user') || '';
+            repoIn.value = localStorage.getItem('gh_repo') || '';
+            branchIn.value = localStorage.getItem('gh_branch') || 'main';
+        });
+
+        // 로컬 스토리지에 사용자 이름/저장소 저장하기
+        loadButton.addEventListener('click', () => {
+            localStorage.setItem('gh_user', userIn.value);
+            localStorage.setItem('gh_repo', repoIn.value);
+            localStorage.setItem('gh_branch', branchIn.value);
+        });
+
+    </script>
+</body>
+</html>
